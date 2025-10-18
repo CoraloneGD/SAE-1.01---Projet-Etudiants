@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
@@ -22,7 +22,6 @@ typedef struct {
 
 Etudiant nouv_etudiant;
 IdEtudiant id;
-Etudiant l_e[NB_ETUDIANTS_MAX];
 
 
 
@@ -36,7 +35,7 @@ int main() {
 		scanf_s("%32s", commande, (unsigned)sizeof(commande));
 
 		if (strcmp(commande, "ETUDIANTS") == 0) {
-			return 0;
+			ETUDIANTS();
 		}
 		else if (strcmp(commande, "CURSUS") == 0) {
 			printf("Affichage du cursus d'un etudiant... \n");
@@ -123,41 +122,15 @@ int INSCRIRE(void) {
 	return 0;
 }
 
-	
-//int ETUDIANTS(int id_etudiant, char prenom[NB_CARACTERES], char nom[NB_CARACTERES], char statut) {
-//	// Fonction qui regroupe la liste des étudiants dans un tableau
-//	// Etudiant liste_etudiant[NB_ETUDIANTS_MAX]; Tableau avec un limite de 100 etudiants --> à changer
-//	printf("Voici tous les etudiants enregistres au sein de l'IUT : %c \n");
-//	for (int i = 0; i != id_etudiant; ++i) {
-//
-//	}
-//
-//
-//
-//}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	printf("Quel est le nom et prénom du nouvel étudiant ? : \n");
-//	scanf("%s%s", nom, prenom); // Nom et prenom deux chars ne dépassant pas 30	caractères, sans espaces
-//	Etudiant nouvel_etudiant.nom = nom;
-//	Etudiant nouvel_etudiant.prenom = prenom;
-//	 // Etudiant idEtu + 1 a changer, faux
-//	nouvel_etudiant.etudiant;
-//	printf("Inscription enregistrée");
-//	// Mettre une condition si le nb etudiant dépasse 100, refuse toute inscription !! + Si le nom + prenom est le même 
-//	if (nouvel_etudiant > NB_ETUDIANTS_MAX) {
-//		printf("Limite etudiante dépassée \n");
-//	}
-//	else {
-//		printf("Inscription enregistree \n");
-//	}
-//	return 0;
-//}
+int ETUDIANTS(void) {
+	if (id.id_etudiant == 0) {
+		printf("Aucun etudiant n'est enregistre.\n");
+		return 0;
+	}
+	else {
+		for (int i = 0; i < id.id_etudiant; ++i) {
+			printf("%d - %s %s - S%d - %s\n", id.liste_etudiants[i].id, id.liste_etudiants[i].nom, id.liste_etudiants[i].prenom,
+				id.liste_etudiants[i].semestres, id.liste_etudiants[i].statut);
+		}
+	}
+}

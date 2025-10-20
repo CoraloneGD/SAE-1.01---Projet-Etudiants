@@ -85,6 +85,14 @@ int INSCRIRE(void) {
 		return -1;
 	}
 
+	// vérifie si l'étudiant ne possède pas le même prenom et nom que l'ancien.
+	for (int j = 0; j < id.id_etudiant; ++j) {
+		if (_stricmp(id.liste_etudiants[j].nom, nom) == 0 && (_stricmp(id.liste_etudiants[j].prenom, prenom) == 0)) {
+			printf("Etudiant deja enregistre \n");
+			return -1;
+		}
+	}
+
 	// Copier les données du nouvel étudiant
 	strncpy(nouv_etudiant.nom, nom, NB_CARACTERES - 1);
 	nouv_etudiant.nom[NB_CARACTERES - 1] = '\0'; // sécurité pour bien terminer la chaîne

@@ -4,6 +4,16 @@
 #include <limits.h>
 #pragma warning (disable: 4996 6031)
 
+/*
+Règles UE et RCUE:
+	-	Chaque semestre: 6 UE.
+	-	Note > 10: Validé, et RCUE > 10 valides celles correspondants de l'année précédente
+
+	a student can leave or be declared "defaillant"
+	aucune note < 8, sinon quitte ajournée
+	semestre pair : Note > 10 et plus dans la moitiée des RCUE.
+*/
+
 enum {NB_CARACTERES = 30, NB_ETUDIANTS_MAX = 100, NB_SEMESTRES = 6};
 
 
@@ -11,14 +21,18 @@ typedef struct {
 	char nom[NB_CARACTERES];
 	char prenom[NB_CARACTERES];
 	char statut[NB_CARACTERES]; // Définition d'un type énuméré étudiant.
-	int semestres;
+	int semestres;  // max 6 semestres
 	int id;
+	int UE;
+	float note;
 } Etudiant;
 
 typedef struct {
 	Etudiant liste_etudiants[NB_ETUDIANTS_MAX];
 	int id_etudiant;
 } IdEtudiant;
+
+
 
 Etudiant nouv_etudiant;
 IdEtudiant id;
@@ -31,14 +45,14 @@ int main() {
 
 	do {
 		printf("Entrez une commande parmis celles qui sont disponibles, en MAJUSCULE obligatoire ! \n");
-		printf("ETUDIANTS CURSUS INSCRIRE EXIT JURY BILAN \n");
+		printf("ETUDIANTS CURSUS INSCRIRE NOTE EXIT JURY BILAN  \n");
 		scanf_s("%32s", commande, (unsigned)sizeof(commande));
 
 		if (strcmp(commande, "ETUDIANTS") == 0) {
 			ETUDIANTS();
 		}
 		else if (strcmp(commande, "CURSUS") == 0) {
-			printf("Affichage du cursus d'un etudiant... \n");
+			CURSUS();
 		}
 		else if (strcmp(commande, "INSCRIRE") == 0) {
 			INSCRIRE();
@@ -46,16 +60,20 @@ int main() {
 		else if (strcmp(commande, "EXIT") == 0) {
 			EXIT(commande);
 		}
-		else if (strcmp(commande, "JURY") == 0) {
+		else if (strcmp(commande, "JURY") == 0 ) {
 			printf("Organisation du jury... \n");
 		}
 		else if (strcmp(commande, "BILAN") == 0) {
 			printf("Affichage du bilan des étudiants... \n");
 		}
+		else if (strcmp(commande, "NOTE") == 0) {
+			NOTE();
+		}
 		else {
 			printf("Commande inconnue. Veuillez reessayer.\n");
 		}
 	} while (1);
+	return 0;
 }
 
 int EXIT(char commande[NB_CARACTERES]) {
@@ -70,7 +88,6 @@ int INSCRIRE(void) {
 	char nom[NB_CARACTERES];
 	char prenom[NB_CARACTERES];
 
-	printf("Quel est le nom et prenom de l'etudiant ?\n");
 	if (scanf("%29s %29s", nom, prenom) != 2) {
 		printf("Lecture invalide. Inscription annulee.\n");
 		// vider le buffer au cas où l'utilisateur tape n'importe quoi
@@ -142,3 +159,30 @@ int ETUDIANTS(void) {
 		}
 	}
 }
+int NOTE(void) {
+	int  id_etudiant;
+	// Vérifie si l'ID est valide.
+	scanf_s("%d %d %u", &id_etudiant, nouv_etudiant.UE, nouv_etudiant.note);
+	for (int i = 0; i < id.id_etudiant; ++i) {
+		if (id_etudiant == id.liste_etudiants[i].id) {
+			printf("Note enregistree");
+		}
+		else if (id_etudiant != id.liste_etudiants[i].id) {
+			printf("Identifiant incorrect \n");
+		}
+	}
+}
+
+
+int CURSUS(void) {
+	int id_etudiant; 
+	scanf_s("%d", &id_etudiant);
+	// Boucle qui vérifie si l'id étudiant correspond à celui du tableau (1 == 1).
+	for (int i = 0; i < id.id_etudiant;  ++i) {
+		if (id_etudiant == id.liste_etudiants[i].id) {
+			printf(" - %d - %s - %s \n", id.liste_etudiants[i].id, id.liste_etudiants[i].nom, id.liste_etudiants[i].prenom);
+			printf("S%d - %d", id.liste_etudiants[i].semestres, nouv_etudiant.UE);
+		}
+	}
+}
+

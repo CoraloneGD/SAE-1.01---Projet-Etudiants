@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 #pragma warning (disable: 4996 6031)
 
 /*
@@ -39,49 +38,12 @@ IdEtudiant id;
 
 
 
-int main() {
-	char commande[NB_CARACTERES];
-	int recommencer = 1;
-
-	do {
-		printf("Entrez une commande parmis celles qui sont disponibles, en MAJUSCULE obligatoire ! \n");
-		printf("ETUDIANTS CURSUS INSCRIRE NOTE EXIT JURY BILAN  \n");
-		scanf_s("%32s", commande, (unsigned)sizeof(commande));
-
-		if (strcmp(commande, "ETUDIANTS") == 0) {
-			ETUDIANTS();
-		}
-		else if (strcmp(commande, "CURSUS") == 0) {
-			CURSUS();
-		}
-		else if (strcmp(commande, "INSCRIRE") == 0) {
-			INSCRIRE();
-		}
-		else if (strcmp(commande, "EXIT") == 0) {
-			EXIT(commande);
-		}
-		else if (strcmp(commande, "JURY") == 0 ) {
-			printf("Organisation du jury... \n");
-		}
-		else if (strcmp(commande, "BILAN") == 0) {
-			printf("Affichage du bilan des étudiants... \n");
-		}
-		else if (strcmp(commande, "NOTE") == 0) {
-			NOTE();
-		}
-		else {
-			printf("Commande inconnue. Veuillez reessayer.\n");
-		}
-	} while (1);
-	return 0;
-}
-
 int EXIT(char commande[NB_CARACTERES]) {
 	if (strcmp(commande, "EXIT") == 0) {
 		printf("Arret du programme... \n");
-		EXIT(0);
 		abort(); // Arret programme après que l'utilisateur ait tapé "EXIT".
 	}
+	return 0;
 }
 
 int INSCRIRE(void) {
@@ -108,6 +70,7 @@ int INSCRIRE(void) {
 			printf("Etudiant deja enregistre \n");
 			return -1;
 		}
+
 	}
 
 	// Copier les données du nouvel étudiant
@@ -158,11 +121,12 @@ int ETUDIANTS(void) {
 				id.liste_etudiants[i].semestres, id.liste_etudiants[i].statut);
 		}
 	}
+	return 0;
 }
 int NOTE(void) {
 	int  id_etudiant;
 	// Vérifie si l'ID est valide.
-	scanf_s("%d %d %u", &id_etudiant, nouv_etudiant.UE, nouv_etudiant.note);
+	scanf("%d %d %f", &id_etudiant, &nouv_etudiant.UE, &nouv_etudiant.note);
 	for (int i = 0; i < id.id_etudiant; ++i) {
 		if (id_etudiant == id.liste_etudiants[i].id) {
 			printf("Note enregistree");
@@ -171,18 +135,59 @@ int NOTE(void) {
 			printf("Identifiant incorrect \n");
 		}
 	}
+	return 0;
 }
 
 
 int CURSUS(void) {
-	int id_etudiant; 
+	int id_etudiant;
 	scanf_s("%d", &id_etudiant);
 	// Boucle qui vérifie si l'id étudiant correspond à celui du tableau (1 == 1).
-	for (int i = 0; i < id.id_etudiant;  ++i) {
+	for (int i = 0; i < id.id_etudiant; ++i) {
 		if (id_etudiant == id.liste_etudiants[i].id) {
 			printf(" - %d - %s - %s \n", id.liste_etudiants[i].id, id.liste_etudiants[i].nom, id.liste_etudiants[i].prenom);
 			printf("S%d - %d", id.liste_etudiants[i].semestres, nouv_etudiant.UE);
 		}
 	}
+	return 0;
 }
 
+
+
+
+int main() {
+	char commande[NB_CARACTERES];
+	int recommencer = 1;
+
+	do {
+		printf("Entrez une commande parmis celles qui sont disponibles, en MAJUSCULE obligatoire ! \n");
+		printf("ETUDIANTS CURSUS INSCRIRE NOTE EXIT JURY BILAN  \n");
+		scanf("%32s", commande);
+
+		if (strcmp(commande, "ETUDIANTS") == 0) {
+			ETUDIANTS();
+		}
+		else if (strcmp(commande, "CURSUS") == 0) {
+			CURSUS();
+		}
+		else if (strcmp(commande, "INSCRIRE") == 0) {
+			INSCRIRE();
+		}
+		else if (strcmp(commande, "EXIT") == 0) {
+			EXIT(commande);
+		}
+		else if (strcmp(commande, "JURY") == 0 ) {
+			printf("Organisation du jury... \n");
+		}
+		else if (strcmp(commande, "BILAN") == 0) {
+			printf("Affichage du bilan des étudiants... \n");
+		}
+		else if (strcmp(commande, "NOTE") == 0) {
+			NOTE();
+		}
+		else {
+			printf("Commande inconnue. Veuillez reessayer.\n");
+		}
+	} while (1);
+	return 0;
+}

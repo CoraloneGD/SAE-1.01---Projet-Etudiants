@@ -1,13 +1,2 @@
 ﻿  main.c
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(52,4): warning C4013: 'ETUDIANTS' non défini(e) ; extern retournant int pris par défaut
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(55,4): warning C4013: 'CURSUS' non défini(e) ; extern retournant int pris par défaut
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(58,4): warning C4013: 'INSCRIRE' non défini(e) ; extern retournant int pris par défaut
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(61,4): warning C4013: 'EXIT' non défini(e) ; extern retournant int pris par défaut
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(70,4): warning C4013: 'NOTE' non défini(e) ; extern retournant int pris par défaut
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(165,10): warning C4477: 'scanf_s' : la chaîne de format '%d' nécessite un argument de type 'int *', mais l'argument variadique 2 est de type 'int'
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(165,10): warning C4477: 'scanf_s' : la chaîne de format '%u' nécessite un argument de type 'unsigned int *', mais l'argument variadique 3 est de type 'double'
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(187,1): warning C4716: 'CURSUS' : doit retourner une valeur
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(174,1): warning C4716: 'NOTE' : doit retourner une valeur
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(161,1): warning C4715: 'ETUDIANTS' : les chemins de contrôle ne retournent pas tous une valeur
-C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\main.c(85,1): warning C4715: 'EXIT' : les chemins de contrôle ne retournent pas tous une valeur
   SAE_1.01.vcxproj -> C:\Users\Nathan\Desktop\Projets\Projet_Etudiant\x64\Debug\SAE_1.01.exe

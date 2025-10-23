@@ -13,7 +13,7 @@ Règles UE et RCUE:
 	semestre pair : Note > 10 et plus dans la moitiée des RCUE.
 */
 
-enum {NB_CARACTERES = 30, NB_ETUDIANTS_MAX = 100, NB_SEMESTRES = 6};
+enum {NB_CARACTERES = 30, NB_ETUDIANTS_MAX = 100, NB_SEMESTRES = 6, NB_UE = 6, ADMIS = 10};
 
 
 typedef struct {
@@ -31,11 +31,16 @@ typedef struct {
 	int id_etudiant;
 } IdEtudiant;
 
+typedef struct {
+	IdEtudiant liste_UE[NB_UE];
+	float note;
+} NotesUE;
+
 
 
 Etudiant nouv_etudiant;
 IdEtudiant id;
-
+NotesUE notesUE;
 
 
 int EXIT(char commande[NB_CARACTERES]) {
@@ -64,7 +69,7 @@ int INSCRIRE(void) {
 		return -1;
 	}
 
-	// vérifie si l'étudiant ne possède pas le même prenom et nom que l'ancien.
+	// vérifie si l'étudiant ne possède pas le même prenom et nom que l'ancien (majuscule ou min
 	for (int j = 0; j < id.id_etudiant; ++j) {
 		if (_stricmp(id.liste_etudiants[j].nom, nom) == 0 && (_stricmp(id.liste_etudiants[j].prenom, prenom) == 0)) {
 			printf("Etudiant deja enregistre \n");
@@ -123,15 +128,16 @@ int ETUDIANTS(void) {
 	}
 	return 0;
 }
+
 int NOTE(void) {
-	int  id_etudiant;
+	int id_etudiant = 0;
 	// Vérifie si l'ID est valide.
-	scanf("%d %d %f", &id_etudiant, &nouv_etudiant.UE, &nouv_etudiant.note);
+	scanf("%d %d %f", &id_etudiant, &nouv_etudiant.UE, &notesUE.liste_UE->liste_etudiants[id_etudiant].note);
 	for (int i = 0; i < id.id_etudiant; ++i) {
 		if (id_etudiant == id.liste_etudiants[i].id) {
-			printf("Note enregistree");
+			printf("Note enregistree \n");
 		}
-		else if (id_etudiant != id.liste_etudiants[i].id) {
+		else {
 			printf("Identifiant incorrect \n");
 		}
 	}
@@ -141,12 +147,27 @@ int NOTE(void) {
 
 int CURSUS(void) {
 	int id_etudiant;
+	char status[3];
 	scanf_s("%d", &id_etudiant);
 	// Boucle qui vérifie si l'id étudiant correspond à celui du tableau (1 == 1).
 	for (int i = 0; i < id.id_etudiant; ++i) {
 		if (id_etudiant == id.liste_etudiants[i].id) {
-			printf(" - %d - %s - %s \n", id.liste_etudiants[i].id, id.liste_etudiants[i].nom, id.liste_etudiants[i].prenom);
-			printf("S%d - %d", id.liste_etudiants[i].semestres, nouv_etudiant.UE);
+			printf("%d %s %s\n", id.liste_etudiants[i].id, id.liste_etudiants[i].nom, id.liste_etudiants[i].prenom);
+		}
+
+		for (int j = 1; j < id.liste_etudiants[i].semestres; ++j) {
+			for (int k = 1; k < id.liste_etudiants[i].UE; ++k) {
+				for (int l = 1; l < notesUE.liste_UE->liste_etudiants[i].note; ++l) {
+					if (notesUE.liste_UE->liste_etudiants[i].note >= ADMIS) {
+						status[0] = "ADM";
+					}
+					else {
+						status[0] = "AJ";
+					}
+
+					printf("- %dd (%s)\n", notesUE.liste_UE->liste_etudiants[l].note, status);
+				}
+			}
 		}
 	}
 	return 0;
@@ -191,3 +212,10 @@ int main() {
 	} while (1);
 	return 0;
 }
+
+
+
+
+
+
+
